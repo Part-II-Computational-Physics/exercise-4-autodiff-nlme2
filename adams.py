@@ -83,29 +83,14 @@ def adam(model, n_steps=100):
         # backward
         model.zero_grad()
         total_loss.backward()
-    
+
         # update (adam)
-        lr = eta * learning_rate(t, n_steps)
-        for i, p in enumerate(model.parameters()):
-            g = p.grad
-            m[i] = b1 * m[i] + (1 - b1) * g
-            v[i] = b2 * v[i] + (1 - b2) * g**2
-        
-        # Bias correction
-        m_hat = m[i] / (1 - b1**t)
-        v_hat = v[i] / (1 - b2**t)
-        
-        # Update parameters
-        p.data = p.data - lr * (m_hat / (np.sqrt(v_hat) + eps) + lmbda * p.data)
-        
-    if t >= n_steps:
-        break
-
-    if step % 10 == 0 or step == n_steps-1:
-        print(f"step {step} loss {total_loss.data}, accuracy {acc*100}%")
-            param.data -= lr * mb / (np.sqrt(vb) + eps) - lr * lmbda * param.data
-
-        if step % 10 == 0 or step == n_steps-1:
-            print(f"step {step} loss {total_loss.data}, accuracy {np.mean(acc)*100}%")
+        #TO DO
     
     return losses, accuracies
+
+
+modeladam = initialise(n_neurons = 16)
+lossadam, accadam = adam(modeladam)
+
+visualise(modeladam)
